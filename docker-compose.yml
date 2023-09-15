@@ -1,0 +1,18 @@
+version: '3.7'  # Versi Docker Compose yang digunakan
+services:
+  item-db: # Nama service pertama, item-db
+    image: mongo:3 # Image yang digunakan untuk service db
+    volumes:
+      - app-db:/data/db # Volume yang digunakan untuk menyimpan data database
+    restart: always # selalu restart jika berhenti
+
+  item-app: # Nama service kedua, item-app
+    image: ghcr.io/amryyahya/item-app:v1 # Image yang digunakan untuk service app
+    ports:
+      - "80:8080" # Port mapping dari host (80) ke container (8080)
+    depends_on:
+      - item-db # Service ini akan berjalan setelah item-db berjalan
+    restart: always # selalu restart jika berhenti
+
+volumes:
+  app-db: # Nama volume, app-db
