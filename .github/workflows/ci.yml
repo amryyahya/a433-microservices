@@ -42,5 +42,5 @@ jobs:
 
     - name: Build and Push Docker Image
       env:
-        GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
+        GITHUB_PAT: ${{ secrets.PAT }}
       run: ./build_push_image_karsajobs.sh
