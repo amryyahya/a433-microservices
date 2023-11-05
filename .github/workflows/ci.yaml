@@ -1,0 +1,31 @@
+name: CI Pipeline - Karsajobs UI
+
+on:
+  push:
+    branches:
+      - karsajobs-ui
+
+jobs:
+  lint-dockerfile:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Install and Run hadolint
+      uses: hadolint/hadolint-action@v3.1.0
+      with:
+        dockerfile: Dockerfile
+
+  build-app-karsajobs-ui:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Build and Push Docker Image
+      env:
+        GITHUB_PAT: ${{ secrets.PAT }}
+      run: ./build_push_image_karsajobs_ui.sh
